@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+.text__div {
+    background-color: blue;
+    padding: 10rem;
+    text-align: center;
+}
+
+.heading__primary {
+    font-size: 6.8rem;
+}
+
+.text__paragraph {
+    font-size: 3.6rem;
+}
+
+.card__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.button__new__book {
+    margin-top: 4rem;
+    display: inline-block;
+    padding: 1.5rem 3rem;
+}
+
+.list__div {
+    padding: 6rem;
+}
+
+.ul__list {
+    display: flex;
+    gap: 2.4rem;
+}
+
+.list__item {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid blue;
+    gap: 1rem;
+    font-size: 2.4rem;
+    text-align: center;
+}
+
+.btn {
+    display: inline-block;
+    margin-right: 2rem;
+}
