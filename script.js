@@ -29,10 +29,8 @@ function addBooktoLibrary(book) {
 }
 
 // display objects
-
 const newCard = function () {
     while (list.firstChild) {
-        console.log(list.firstChild);
         list.removeChild(list.firstChild);
     }
     mylibrary.forEach((el, i) => {
@@ -62,7 +60,7 @@ const newCard = function () {
         const newRead = document.createElement('button');
         newRead.classList.add('btn');
         newRead.classList.add('card__boolean');
-        newRead.textContent = el.read === true ? 'READ' : 'UNREAD';
+        newRead.textContent = el.read === true ? 'Read ✔️' : 'Unread ❌';
 
         // Button Delete
         const btnDelete = document.createElement('button');
@@ -75,7 +73,6 @@ const newCard = function () {
         divButtons.classList.add('card__buttons');
 
         // append
-
         newItem.appendChild(newBookName);
         newItem.appendChild(newAuthor);
         newItem.appendChild(newPages);
@@ -92,6 +89,12 @@ const newCard = function () {
 
             toDelete.remove();
             mylibrary.pop();
+        });
+
+        // change read status
+        newRead.addEventListener('click', function (e) {
+            el.changeRead();
+            newRead.textContent = el.read === true ? 'Read ✔️' : 'Unread ❌';
         });
     });
 };
