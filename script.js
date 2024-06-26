@@ -35,9 +35,11 @@ const newCard = function () {
         console.log(list.firstChild);
         list.removeChild(list.firstChild);
     }
-    mylibrary.forEach((el) => {
+    mylibrary.forEach((el, i) => {
+        // li element
         const newItem = document.createElement('li');
-        newItem.classList.add('list__item');
+        newItem.classList.add('list__item__style');
+        newItem.classList.add(`list__item--${i + 1}`);
 
         // Book Name
         const newBookName = document.createElement('p');
@@ -82,11 +84,22 @@ const newCard = function () {
         newItem.appendChild(divButtons);
 
         list.appendChild(newItem);
+
+        // delete item
+        btnDelete.addEventListener('click', function (e) {
+            const clicked = e.target.closest('.ul__list');
+            const toDelete = clicked.querySelector(`.list__item--${i + 1}`);
+
+            toDelete.remove();
+            mylibrary.pop();
+        });
     });
 };
 
+const formado = document.querySelector('.formado');
+
 const btnSubmit = document.querySelector('#submit');
-btnSubmit.addEventListener('click', function (e) {
+formado.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const title = formTitle.value;
