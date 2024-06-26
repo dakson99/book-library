@@ -85,8 +85,8 @@ const newCard = function () {
     });
 };
 
-// form event listener
-btnForm.addEventListener('click', function (e) {
+const btnSubmit = document.querySelector('#submit');
+btnSubmit.addEventListener('click', function (e) {
     e.preventDefault();
 
     const title = formTitle.value;
@@ -96,5 +96,6 @@ btnForm.addEventListener('click', function (e) {
     const entry = new Book(title, author, nPages, formCheck.checked);
     addBooktoLibrary(entry);
     newCard();
-    console.log(mylibrary);
+
+    formTitle.value = formAuthor.value = formNpages.value = '';
 });
