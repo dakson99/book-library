@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <title>Book library</title>
 </head>
 
 <body>
@@ -21,19 +21,7 @@
         </div>
 
         <div class="list__div">
-            <ul class="ul__list">
-                <li class="list__item">
-                    <p class="card__book__name">Seven feet under</p>
-                    <p class="card__book__author">Mark Spauls</p>
-
-                    <p class="card__page__number">10 pages</p>
-
-                    <div class="card__buttons">
-                        <button class="btn card__boolean">Read</button>
-                        <button class="btn button__delete">Delete Book</button>
-                    </div>
-                </li>
-            </ul>
+            <ul class="ul__list"></ul>
         </div>
 
         <form>
@@ -47,9 +35,13 @@
             </div>
             <div class="for__box">
                 <label for="nPages">Number of Pages</label>
-                <input type "number" id="nPages" placeholder="Number of pages" />
+                <input type="number" id="nPages" placeholder="Number of pages" />
+                <div>
+                    <input type="checkbox" id="checkRead" name="checker" />
+                    <label for="subscribeNews">Check if you have read this book</label>
+                </div>
                 <div class="form__box">
-                    <button class="btn btn__form">Click to add</button>
+                    <button class="btn btn__form">Add book</button>
                 </div>
             </div>
         </form>

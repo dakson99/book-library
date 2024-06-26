@@ -3,36 +3,38 @@
 const list = document.querySelector('.ul__list');
 const btnDiv = document.querySelector('.card__buttons');
 const btnNewBook = document.querySelector('.button__new__book');
+const formTitle = document.querySelector('#title');
+const formAuthor = document.querySelector('#author');
+const formNpages = document.querySelector('#nPages');
+const formCheck = document.querySelector('#checkRead');
+
+const form = document.querySelector('form');
+const btnForm = document.querySelector('.btn__form');
 
 let mylibrary = [];
 
 function Book(Name, author, pages, read) {
     this.Name = Name;
     this.author = author;
-    this.read = Boolean(read);
     this.pages = pages;
+    this.read = Boolean(read);
 }
 
 Book.prototype.changeRead = function () {
     this.read = this.read === false ? true : false;
 };
 
-const Harry = new Book('Harry Potter', 'Drogo', 23, false);
-console.log(Harry);
-
-const Drazen = new Book('Djoko', 'Kustravica', 55, true);
-
 function addBooktoLibrary(book) {
     mylibrary.push(book);
 }
 
-addBooktoLibrary(Harry);
-addBooktoLibrary(Drazen);
-console.log(mylibrary);
-
 // display objects
 
 const newCard = function () {
+    while (list.firstChild) {
+        console.log(list.firstChild);
+        list.removeChild(list.firstChild);
+    }
     mylibrary.forEach((el) => {
         const newItem = document.createElement('li');
         newItem.classList.add('list__item');
@@ -82,3 +84,17 @@ const newCard = function () {
         list.appendChild(newItem);
     });
 };
+
+// form event listener
+btnForm.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const title = formTitle.value;
+    const author = formAuthor.value;
+    const nPages = formNpages.value;
+
+    const entry = new Book(title, author, nPages, formCheck.checked);
+    addBooktoLibrary(entry);
+    newCard();
+    console.log(mylibrary);
+});
