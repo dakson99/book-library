@@ -1,5 +1,6 @@
 'use strict';
 
+// selectors
 const list = document.querySelector('.ul__list');
 const btnDiv = document.querySelector('.card__buttons');
 const btnNewBook = document.querySelector('.button__new__book');
@@ -16,6 +17,7 @@ const closeIcon = document.querySelector('.close__icon');
 
 let mylibrary = [];
 
+// constructor
 function Book(Name, author, pages, read) {
     this.Name = Name;
     this.author = author;
@@ -23,17 +25,66 @@ function Book(Name, author, pages, read) {
     this.read = Boolean(read);
 }
 
+// prototype
 Book.prototype.changeRead = function () {
     this.read = this.read === false ? true : false;
 };
 
-function addBooktoLibrary(book) {
+// functions
+const addBookToLibrary = function (book) {
     mylibrary.push(book);
 }
+
+const displayFormOverlay = function () {
+    formado.classList.remove('hidden');
+    overlay.classList.remove('hidden');
+};
 
 const removeformOverlay = function () {
     formado.classList.add('hidden');
     overlay.classList.add('hidden');
+};
+
+const removeFormOverlayWindow = function () {
+    return function (e) {
+        if (e.key === 'Escape') {
+            removeformOverlay();
+        }
+    };
+};
+
+const submitForm = function () {
+    return function (e) {
+        e.preventDefault();
+        const title = formTitle.value;
+        const author = formAuthor.value;
+        const nPages = formNpages.value;
+
+        const entry = new Book(title, author, nPages, formCheck.checked);
+        addBookToLibrary(entry);
+        newCard();
+
+        formTitle.value = formAuthor.value = formNpages.value = '';
+
+        removeformOverlay();
+    };
+};
+
+const toggleReadStatus = function (el, btn) {
+    return function () {
+        el.changeRead();
+        btn.textContent = el.read === true ? 'Read ✔️' : 'Unread ❌';
+    };
+};
+
+const deleteBookCard = function (i) {
+    return function (e) {
+        const clicked = e.target.closest('.ul__list');
+        const toDelete = clicked.querySelector(`.list__item--${i + 1}`);
+
+        toDelete.remove();
+        mylibrary.pop();
+    };
 };
 
 // display objects
@@ -47,97 +98,52 @@ const newCard = function () {
         newItem.classList.add('list__item__style');
         newItem.classList.add(`list__item--${i + 1}`);
 
-        // Book Name
-        const newBookName = document.createElement('p');
-        newBookName.classList.add('card__book__name');
-        newBookName.textContent = `${el.Name}`;
-
-        // Book Author
-        const newAuthor = document.createElement('p');
-        newAuthor.classList.add('card__book__author');
-        newAuthor.textContent = `- ${el.author}`;
-        newItem.appendChild(newAuthor);
-
-        // Book Pages
-        const newPages = document.createElement('p');
-        newPages.classList.add('card__page__number');
-        newPages.textContent = `${el.pages} pages`;
-        newItem.appendChild(newPages);
-
-        // Read Boolean
-        const newRead = document.createElement('button');
-        newRead.classList.add('btn');
-        newRead.classList.add('card__boolean');
-        newRead.textContent = el.read === true ? 'Read ✔️' : 'Unread ❌';
-
-        // Button Delete
-        const btnDelete = document.createElement('button');
-        btnDelete.classList.add('btn');
-        btnDelete.classList.add('button__delete');
-        btnDelete.textContent = 'Delete Book';
+        newItem.innerHTML = `<p class="card__book__name">${el.Name}
+        </p><p class="card__book__author">- ${el.author}
+        </p><p class="card__page__number">${el.pages} pages</p>`;
 
         // const divButtons
         const divButtons = document.createElement('div');
         divButtons.classList.add('card__buttons');
 
-        // append
-        newItem.appendChild(newBookName);
-        newItem.appendChild(newAuthor);
-        newItem.appendChild(newPages);
+        // button read status
+        const newRead = document.createElement('button');
+        newRead.classList.add('btn');
+        newRead.classList.add('card__boolean');
+        newRead.textContent = el.read === true ? 'Read ✔️' : 'Unread ❌';
+
+        // button delete
+        const btnDelete = document.createElement('button');
+        btnDelete.classList.add('btn');
+        btnDelete.classList.add('button__delete');
+        btnDelete.textContent = 'Delete Book';
+
+        // append buttons to div
         divButtons.appendChild(newRead);
         divButtons.appendChild(btnDelete);
+
+        // append div to li
         newItem.appendChild(divButtons);
 
+        // append li to ul
         list.appendChild(newItem);
 
         // delete item
-        btnDelete.addEventListener('click', function (e) {
-            const clicked = e.target.closest('.ul__list');
-            const toDelete = clicked.querySelector(`.list__item--${i + 1}`);
-
-            toDelete.remove();
-            mylibrary.pop();
-        });
+        btnDelete.addEventListener('click', deleteBookCard(i));
 
         // change read status
-        newRead.addEventListener('click', function (e) {
-            el.changeRead();
-            newRead.textContent = el.read === true ? 'Read ✔️' : 'Unread ❌';
-        });
+        newRead.addEventListener('click', toggleReadStatus(el, newRead));
     });
 };
 
-formado.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const title = formTitle.value;
-    const author = formAuthor.value;
-    const nPages = formNpages.value;
-
-    const entry = new Book(title, author, nPages, formCheck.checked);
-    addBooktoLibrary(entry);
-    newCard();
-
-    formTitle.value = formAuthor.value = formNpages.value = '';
-
-    formado.classList.add('hidden');
-    overlay.classList.add('hidden');
-});
+// submit form
+formado.addEventListener('submit', submitForm());
 
 // display form and modal
-btnNewBook.addEventListener('click', function (e) {
-    formado.classList.remove('hidden');
-    overlay.classList.remove('hidden');
-    console.log('aa');
-});
+btnNewBook.addEventListener('click', displayFormOverlay);
 
+// remove form and modal
 overlay.addEventListener('click', removeformOverlay);
-
 closeIcon.addEventListener('click', removeformOverlay);
 
-window.addEventListener('keydown', function (e) {
-    console.log(e.key);
-    if (e.key === 'Escape') {
-        removeformOverlay();
-    }
-});
+window.addEventListener('keydown', removeFormOverlayWindow());
