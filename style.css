@@ -8,6 +8,7 @@ body {
     background: linear-gradient(to top, #e4e5e6, #00416a);
 
     height: 100vh;
+    font-family: 'Literata', 'Gentium Book Basic', serif;
 }
 
 html {
@@ -27,6 +28,8 @@ html {
 .heading__primary {
     font-size: 6.5rem;
     color: #e4e5e6;
+    margin-bottom: 2rem;
+    font-weight: 600;
 }
 
 .text__paragraph {
@@ -37,45 +40,94 @@ html {
 .card__buttons {
     display: flex;
     justify-content: center;
-    gap: 3rem;
     align-items: center;
+    gap: 2rem;
+    margin-top: 1.4rem;
+}
+
+/* buttons */
+
+.btn {
+    display: inline-block;
 }
 
 .button__new__book {
+    cursor: pointer;
     margin-top: 4rem;
     font-size: 1.8rem;
     display: inline-block;
     padding: 2.1rem 4.2rem;
     border: none;
-    background-color: #001320;
+    background-color: #002135;
     border-radius: 30px;
     font-weight: 700;
     color: #fff;
+    transition: all ease 0.3s;
 }
 
-.list__div {
-    padding: 6rem;
-    grid-template-columns: 1fr;
+.card__boolean,
+.button__delete {
+    padding: 1.2rem 2.4rem;
+    border: none;
+    border-radius: 20px;
+    background-color: #002135;
+    color: #fff;
+    font-weight: 700;
+}
+
+.button__new__book:hover,
+.card__boolean:hover,
+.button__delete:hover,
+.submit:hover {
+    color: #fff;
+    background-color: #001a2a;
+}
+
+.button__new__book:active,
+.card__boolean:active,
+.button__delete:active,
+.submit:active {
+    background-color: #000d15;
+    color: #e4e5e6;
 }
 
 .ul__list {
     display: flex;
     flex-wrap: wrap;
-    gap: 2.4rem;
+    gap: 4.8rem;
 }
 
 .list__item__style {
+    cursor: pointer;
+    padding: 4.2rem;
     display: flex;
     flex-direction: column;
-    border: 2px solid blue;
     gap: 1rem;
     font-size: 2.4rem;
     text-align: center;
     width: 30%;
+    border-radius: 20px;
+    background-color: #dee2e6;
+    color: #00080d;
+    margin-bottom: 7.6rem;
+    box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
+    transition: all ease 0.3s;
 }
 
-.btn {
-    display: inline-block;
+.list__item__style:hover {
+    transform: scale(1.1);
+}
+
+.card__book__name {
+    font-size: 2.8rem;
+}
+
+.card__book__author {
+    font-size: 2rem;
+}
+
+.card__page__number {
+    font-size: 1.4rem;
 }
 
 /* form */
@@ -83,9 +135,13 @@ html {
 .formado {
     position: fixed;
     left: 50%;
-    top: 35%;
+    top: 25%;
     transform: translateX(-50%);
     z-index: 1000;
+    background-color: #dee2e6;
+    padding: 10rem 5rem;
+    border-radius: 20px;
+    transition: all ease 0.5s;
 }
 
 .form__box {
@@ -96,7 +152,9 @@ html {
 
 label {
     font-size: 2rem;
+    color: #e4e5e6;
     margin-right: 1rem;
+    color: #00080d;
 }
 
 input[type='text'],
@@ -105,14 +163,14 @@ input[type='number'] {
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
+    border-radius: 10px;
+    border: none;
 }
 
 .form__box__check {
     display: flex;
     margin-top: 2rem;
 }
-
-.check__label {}
 
 .checkRead {
     margin-right: 1rem;
@@ -126,6 +184,19 @@ input[type='number'] {
     padding: 1.2rem 2.4rem;
     border-radius: 20px;
     border: none;
+    background-color: #002135;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+.close__icon {
+    height: 3.6rem;
+    position: absolute;
+    top: 0;
+    right: -0;
+    cursor: pointer;
+    color: #002135;
 }
 
 .overlay {
@@ -137,4 +208,10 @@ input[type='number'] {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    transition: all ease 0.5s;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
 }

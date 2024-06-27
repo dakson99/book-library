@@ -8,8 +8,11 @@ const formAuthor = document.querySelector('#author');
 const formNpages = document.querySelector('#nPages');
 const formCheck = document.querySelector('#checkRead');
 
-const form = document.querySelector('form');
+const formado = document.querySelector('.formado');
+const btnSubmit = document.querySelector('#submit');
 const btnForm = document.querySelector('.btn__form');
+const overlay = document.querySelector('.overlay');
+const closeIcon = document.querySelector('.close__icon');
 
 let mylibrary = [];
 
@@ -28,6 +31,11 @@ function addBooktoLibrary(book) {
     mylibrary.push(book);
 }
 
+const removeformOverlay = function () {
+    formado.classList.add('hidden');
+    overlay.classList.add('hidden');
+};
+
 // display objects
 const newCard = function () {
     while (list.firstChild) {
@@ -42,18 +50,18 @@ const newCard = function () {
         // Book Name
         const newBookName = document.createElement('p');
         newBookName.classList.add('card__book__name');
-        newBookName.textContent = el.Name;
+        newBookName.textContent = `${el.Name}`;
 
         // Book Author
         const newAuthor = document.createElement('p');
         newAuthor.classList.add('card__book__author');
-        newAuthor.textContent = el.author;
+        newAuthor.textContent = `- ${el.author}`;
         newItem.appendChild(newAuthor);
 
         // Book Pages
         const newPages = document.createElement('p');
         newPages.classList.add('card__page__number');
-        newPages.textContent = el.pages;
+        newPages.textContent = `${el.pages} pages`;
         newItem.appendChild(newPages);
 
         // Read Boolean
@@ -99,9 +107,6 @@ const newCard = function () {
     });
 };
 
-const formado = document.querySelector('.formado');
-
-const btnSubmit = document.querySelector('#submit');
 formado.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -114,4 +119,25 @@ formado.addEventListener('submit', function (e) {
     newCard();
 
     formTitle.value = formAuthor.value = formNpages.value = '';
+
+    formado.classList.add('hidden');
+    overlay.classList.add('hidden');
+});
+
+// display form and modal
+btnNewBook.addEventListener('click', function (e) {
+    formado.classList.remove('hidden');
+    overlay.classList.remove('hidden');
+    console.log('aa');
+});
+
+overlay.addEventListener('click', removeformOverlay);
+
+closeIcon.addEventListener('click', removeformOverlay);
+
+window.addEventListener('keydown', function (e) {
+    console.log(e.key);
+    if (e.key === 'Escape') {
+        removeformOverlay();
+    }
 });
