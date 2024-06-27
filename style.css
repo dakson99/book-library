@@ -215,3 +215,14 @@ input[type='number'] {
     visibility: hidden;
     opacity: 0;
 }
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 3rem;
+    width: 100%;
+    text-align: center;
+    font-size: 1.6rem;
+    color: #666;
+}
