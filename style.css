@@ -32,13 +32,14 @@ html {
 .heading__primary {
     font-size: 5.2rem;
     color: #e4e5e6;
-    margin-bottom: 2rem;
+    margin-bottom: 1.8rem;
     font-weight: 700;
 }
 
 .text__paragraph {
     font-size: 3rem;
     color: #e4e5e6;
+    margin-bottom: 2.2rem;
 }
 
 .card__buttons {
@@ -49,12 +50,6 @@ html {
     margin-top: 1.4rem;
 }
 
-.ul__list::after {
-    content: '';
-    height: 2rem;
-    width: 2rem;
-}
-
 /* buttons */
 
 .btn {
@@ -63,7 +58,6 @@ html {
 }
 
 .button__new__book {
-    margin-top: 4rem;
     font-size: 1.8rem;
     display: inline-block;
     padding: 1.6rem 3.2rem;
@@ -108,7 +102,7 @@ html {
 }
 
 .list__div__transform {
-    transform: translateY(-18rem);
+    transform: translateY(-20rem);
 }
 
 .list__item__style {
