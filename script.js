@@ -1,6 +1,8 @@
 'use strict';
 
 // selectors
+const textDiv = document.querySelector('.text__div');
+const listDiv = document.querySelector('.list__div');
 const list = document.querySelector('.ul__list');
 const btnDiv = document.querySelector('.card__buttons');
 const btnNewBook = document.querySelector('.button__new__book');
@@ -14,7 +16,6 @@ const btnSubmit = document.querySelector('#submit');
 const btnForm = document.querySelector('.btn__form');
 const overlay = document.querySelector('.overlay');
 const closeIcon = document.querySelector('.close__icon');
-const textDiv = document.querySelector('.text__div');
 
 let mylibrary = [];
 
@@ -69,7 +70,7 @@ const submitForm = function () {
 
         removeformOverlay();
         textDiv.classList.add('text__div__transform');
-        list.classList.add('ul__list__transform');
+        listDiv.classList.add('list__div__transform');
     };
 };
 

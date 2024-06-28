@@ -26,7 +26,7 @@ html {
 }
 
 .text__div__transform {
-    transform: translateY(-10rem);
+    transform: translateY(-13rem);
 }
 
 .heading__primary {
@@ -47,6 +47,12 @@ html {
     align-items: center;
     gap: 2rem;
     margin-top: 1.4rem;
+}
+
+.ul__list::after {
+    content: '';
+    height: 2rem;
+    width: 2rem;
 }
 
 /* buttons */
@@ -101,8 +107,8 @@ html {
     gap: 4.8rem;
 }
 
-.ul__list__transform {
-    transform: translateY(-13rem);
+.list__div__transform {
+    transform: translateY(-7rem);
 }
 
 .list__item__style {
@@ -225,12 +231,10 @@ input[type='number'] {
 }
 
 .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
     height: 3rem;
     width: 100%;
-    text-align: center;
     font-size: 1.6rem;
-    color: #444;
+    color: #666;
+    text-align: center;
+    margin-top: 15rem;
 }
