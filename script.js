@@ -15,7 +15,7 @@ const btnForm = document.querySelector('.btn__form');
 const overlay = document.querySelector('.overlay');
 const closeIcon = document.querySelector('.close__icon');
 
-// class
+// class Book
 class Book {
     constructor(Name, author, pages, read) {
         this.Name = Name;
@@ -30,12 +30,14 @@ class Book {
     }
 }
 
+// class Library
 class Library {
     #mylibrary;
 
     constructor() {
         this.#mylibrary = [];
 
+        //EVENT LISTENERS
         // submit form
         formado.addEventListener('submit', this.submitForm().bind(this));
 
@@ -49,64 +51,31 @@ class Library {
         window.addEventListener('keydown', this.removeFormOverlayWindow.bind(this));
     }
 
-    addBookToLibrary = function (book) {
-        this.#mylibrary.push(book);
-    };
-
-    displayFormOverlay = function () {
-        formado.classList.remove('hidden');
-        overlay.classList.remove('hidden');
-    };
-
-    removeformOverlay = function () {
-        formado.classList.add('hidden');
-        overlay.classList.add('hidden');
-    };
-
-    removeFormOverlayWindow = function () {
-        return function (e) {
-            if (e.key === 'Escape') {
-                this.removeformOverlay();
-            }
-        };
-    };
-
-    submitForm = function () {
+    // METHODS
+    submitForm() {
         return function (e) {
             e.preventDefault();
+
             const title = formTitle.value;
             const author = formAuthor.value;
             const nPages = formNpages.value;
+
             const entry = new Book(title, author, nPages, formCheck.checked);
+
             this.addBookToLibrary(entry);
             this.newCard();
+
             formTitle.value = formAuthor.value = formNpages.value = '';
+
             this.removeformOverlay();
+
             textDiv.classList.add('text__div__transform');
             listDiv.classList.add('list__div__transform');
         };
-    };
-
-    toggleReadStatus = function (el, btn) {
-        return function () {
-            el.changeRead();
-            btn.textContent = el.read === true ? 'Read ✔️' : 'Unread ❌';
-        };
-    };
-
-    deleteBookCard = function (i) {
-        return function (e) {
-            const clicked = e.target.closest('.ul__list');
-            const toDelete = clicked.querySelector(`.list__item--${i + 1}`);
-            toDelete.remove();
-            this.#mylibrary.pop();
-            if (this.#mylibrary.length === 0)
-                textDiv.classList.remove('text__div__transform');
-        };
-    };
+    }
 
     // display objects
-    newCard = function () {
+    newCard() {
         while (list.firstChild) {
             list.removeChild(list.firstChild);
         }
@@ -121,7 +90,7 @@ class Library {
         </p ><p class="card__book__author">- ${el.author}
         </p><p class="card__page__number">${el.pages} pages</p>`;
 
-            // const divButtons
+            // buttons container
             const divButtons = document.createElement('div');
             divButtons.classList.add('card__buttons');
 
@@ -156,7 +125,47 @@ class Library {
                 this.toggleReadStatus(el, newRead).bind(this)
             );
         });
-    };
-}
+    }
 
+
+    addBookToLibrary(book) {
+        this.#mylibrary.push(book);
+    }
+
+    toggleReadStatus(el, btn) {
+        return function () {
+            el.changeRead();
+            btn.textContent = el.read === true ? 'Read ✔️' : 'Unread ❌';
+        };
+    }
+
+    deleteBookCard(i) {
+        return function (e) {
+            const clicked = e.target.closest('.ul__list');
+            const toDelete = clicked.querySelector(`.list__item--${i + 1}`);
+            toDelete.remove();
+            this.#mylibrary.pop();
+            if (this.#mylibrary.length === 0)
+                textDiv.classList.remove('text__div__transform');
+        };
+    }
+
+    displayFormOverlay() {
+        formado.classList.remove('hidden');
+        overlay.classList.remove('hidden');
+    }
+
+    removeformOverlay() {
+        formado.classList.add('hidden');
+        overlay.classList.add('hidden');
+    }
+
+    removeFormOverlayWindow() {
+        return function (e) {
+            if (e.key === 'Escape') {
+                this.removeformOverlay();
+            }
+        };
+    }
+}
 const bookLibrary = new Library();
